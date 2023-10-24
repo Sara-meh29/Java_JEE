@@ -1,0 +1,34 @@
+PROGRAMMATION ORIENTÉE OBJET DISTRIBUÉE :
+
+Apres la creation du webservice les classes necessaires,il faut le deployer sur un http serveur jws
+le serveur genere le wsdl a acceder sur http://localhost:9191/BanqueWs?wsdl
+Le wsdl est un fichier xml qui permet de faire la description de l'interface du webservice 
+chaque methode avec le input et le output qui font reference a des messages. un message pour le input et un message pour le output present au debut du wsdl et dont chaque message fait reference a un type. les types declares dans un shema xml accessible sur http://localhost:9191/?xsd=1
+
+et avec ce wsdl on test le web service a l'aide de l'outil SoapUi
+Pour tester un web service on a besoin de 2 information le type du webservice et Le Wsdl
+L'outil SoapUi va charger le Wsdl et presente les 3 methodes
+
+Pour Requete Convert On envoie en parametre le montant 100 et apres avoir passer la requete en recoit en reponse le resultat de la conversion 
+
+Ainsi pour la methode getCompte On envoie en parametre le code et en recoit en reponse l'objet compte en question(code, solde)
+
+Pour listCompte pas de parametre et ca envoit on reponse L'ensemble des comptes cries
+
+
+
+Apres le test On cree une application client Java Qui Permet de Consommer le WebService 
+JaxWs a besoin d'une librairie pour Convertir Un Objet Java en Xml, On utilise JaxB qui permet de faire le mapping objet Xml
+JaxB dispose des Annotations supposont que lorsqu on veut serialiser l'objet compte, je veux serialiser l'attribut code et solde et non DatedeCreation je ne veut pas le mettre dans le code Xml, On utilise l'annotation @XmlTransient pour l'ignorer et pour utiliser ces Annotations sur les attributs On ajoute @@XmlAccessorType(XmlAccessType.FIELD) pour mettre les annotations sur les attributs et non sur les getters et setters.et @XmlRootElement(name = "Compte") qui va nous donner un Element Xml Compte et on redemare le serveur
+Pour tester On cree un nouveau projet Soap et on lance la requete getCompte qui va pas afficher le champs date creation qu'on ignorer
+
+cree une application client Java Qui Permet de Consommer le WebService:
+Je veut consommer un webservice mais j'ai que le Wsdl, si j'ai le Wsdl je vais generer un Proxy je vais generer des Interface Java qui vont me permet de communique apres avoir ajouter le Plugin JaxWs 
+On criee le clientWs, on met le middleware STUB Client L'intermediaire et dont on specifie les champs necessaire pour tester la methode Convert par exemple du webservice dans une autre machine 
+On recoit les informations non transient 
+
+
+
+
+
+
